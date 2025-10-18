@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Selamat Ulang Tahun — Windi 🎂</title>
+  <style>
+    :root {
+      --bg-primary: #fff6fb;
+      --bg-secondary: #f3e9ff;
+      --accent-pink: #ff89b6;
+      --accent-purple: #8b6bff;
+      --text-muted: #6b6b7a;
+      --text-primary: #111;
+      --text-dark: #14061a;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --shadow-primary: 0 14px 44px rgba(18, 12, 40, 0.08);
+      --shadow-hover: 0 12px 32px rgba(138, 107, 255, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: radial-gradient(900px 420px at 8% 6%, rgba(139, 107, 255, 0.06), transparent 8%),
+                  linear-gradient(180deg, var(--bg-primary), var(--bg-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      overflow: hidden;
+    }
+
+    .stage {
+      width: min(960px, 94vw);
+      padding: 32px;
+      border-radius: 20px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow-primary);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 5vw, 40px);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmer 3s ease-in-out infinite;
+      background-size: 200% 200%;
+    }
+
+    @keyframes shimmer {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .lead {
+      margin: 8px 0 20px;
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .btn {
+      border: 0;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+      color: white;
+      box-shadow: 0 8px 24px rgba(138, 107, 255, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s;
+    }
+
+    .btn:hover::before {
+      transform: translateX(100%);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 16px rgba(138, 107, 255, 0.2);
+    }
+
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 0;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+      color: white;
+      font-size: 24px;
+      box-shadow: 0 4px 16px rgba(138, 107, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 24px rgba(138, 107, 255, 0.4);
+    }
+
+    .music-btn.playing {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      border-radius: 16px;
+      padding: 24px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7));
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      animation: slideUp 0.5s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message {
+      white-space: pre-wrap;
+      text-align: center;
+      color: var(--text-dark);
+      font-size: 18px;
+      line-height: 1.7;
+      min-height: 84px;
+    }
+
+    .signature {
+      font-weight: 700;
+      color: var(--accent-purple);
+      animation: fadeIn 0.5s ease-out 0.3s both;
+    }
+
+    .sky {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -28%;
+      width: 64px;
+      height: 86px;
+      border-radius: 50% / 60%;
+      transform-origin: center bottom;
+      opacity: 0.95;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    .balloon-string {
+      position: absolute;
+      left: 50%;
+      bottom: -24px;
+      width: 2px;
+      height: 28px;
+      background: linear-gradient(#fff, transparent);
+      transform: translateX(-50%);
+    }
+
+    .b1 {
+      left: 6%;
+      animation: rise 11s linear infinite, sway 3.8s ease-in-out infinite;
+    }
+
+    .b2 {
+      left: 24%;
+      width: 56px;
+      height: 76px;
+      animation: rise 11.6s linear infinite, sway 4.2s ease-in-out infinite;
+      animation-delay: -2s;
+    }
+
+    .b3 {
+      left: 44%;
+      animation: rise 12.4s linear infinite, sway 4.6s ease-in-out infinite;
+      animation-delay: -4s;
+    }
+
+    .b4 {
+      left: 66%;
+      width: 70px;
+      height: 92px;
+      animation: rise 10.4s linear infinite, sway 3.2s ease-in-out infinite;
+      animation-delay: -6s;
+    }
+
+    .b5 {
+      left: 84%;
+      width: 60px;
+      height: 80px;
+      animation: rise 13s linear infinite, sway 5s ease-in-out infinite;
+      animation-delay: -8s;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-220vh) rotate(360deg);
+      }
+    }
+
+    @keyframes sway {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(12px);
+      }
+      75% {
+        transform: translateX(-12px);
+      }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #ffd86b;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      box-shadow: 0 0 8px #ffd86b;
+    }
+
+    @keyframes sparkleAnim {
+      0% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(180deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0) rotate(360deg);
+      }
+    }
+
+    .gift-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gift-wrap:hover {
+      transform: scale(1.08);
+    }
+
+    .gift {
+      width: 240px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(255, 77, 138, 0.2));
+    }
+
+    .gift-hint {
+      font-size: 16px;
+      color: var(--accent-purple);
+      font-weight: 600;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .cake-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .cake-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .cake-wrap:hover {
+      transform: scale(1.05);
+    }
+
+    .cake {
+      width: 220px;
+      height: auto;
+      display: block;
+    }
+
+    .flame {
+      transform-origin: 50% 80%;
+      animation: flicker 900ms infinite;
+    }
+
+    @keyframes flicker {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(-2px) scale(1.08);
+        opacity: 0.92;
+      }
+      50% {
+        transform: translateY(-1px) scale(1.05);
+        opacity: 0.88;
+      }
+      75% {
+        transform: translateY(-2px) scale(1.06);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .candle-glow {
+      filter: blur(8px);
+      opacity: 0.6;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        opacity: 0.4;
+      }
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stage {
+        padding: 20px;
+        border-radius: 14px;
+      }
+
+      h1 {
+        font-size: clamp(20px, 4.5vw, 32px);
+        margin-bottom: 8px;
+      }
+
+      .lead {
+        font-size: 14px;
+      }
+
+      .cake {
+        width: 160px;
+      }
+
+      .gift {
+        width: 180px;
+      }
+
+      .message {
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+
+      .cake-section {
+        gap: 12px;
+      }
+
+      .center {
+        gap: 12px;
+      }
+
+      header {
+        margin-bottom: 12px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="sky">
+      <div class="balloon b1"></div>
+      <div class="balloon b2"></div>
+      <div class="balloon b3"></div>
+      <div class="balloon b4"></div>
+      <div class="balloon b5"></div>
+    </div>
+
+    <header>
+      <h1 id="mainTitle">something spesial only for u 🎁</h1>
+      <p id="leadText" class="lead">Klik kado di bawah untuk membuka hadiah spesial 🎁</p>
+    </header>
+
+    <div class="center">
+      <div id="giftBox" class="gift-wrap">
+        <svg class="gift" viewBox="0 0 300 280">
+          <ellipse cx="150" cy="250" rx="100" ry="12" fill="#f0e7f7" opacity="0.6"/>
+          <rect x="70" y="120" width="160" height="120" rx="8" fill="url(#giftGrad)" stroke="#ff4d8a" stroke-width="2"/>
+          <rect x="140" y="120" width="20" height="120" fill="#ff4d8a" opacity="0.9"/>
+          <rect x="142" y="120" width="16" height="120" fill="url(#ribbonShine)"/>
+          <rect x="70" y="170" width="160" height="20" fill="#ff4d8a" opacity="0.9"/>
+          <rect x="70" y="172" width="160" height="16" fill="url(#ribbonShine)"/>
+          <rect x="60" y="90" width="180" height="35" rx="8" fill="url(#lidGrad)" stroke="#ff4d8a" stroke-width="2"/>
+          <rect x="140" y="90" width="20" height="35" fill="#ff4d8a" opacity="0.9"/>
+          <rect x="142" y="90" width="16" height="35" fill="url(#ribbonShine)"/>
+          <g transform="translate(150, 80)">
+            <ellipse cx="-25" cy="0" rx="28" ry="20" fill="#ff89b6" transform="rotate(-25 -25 0)"/>
+            <ellipse cx="-20" cy="0" rx="22" ry="16" fill="#ffb3d9" transform="rotate(-25 -20 0)"/>
+            <ellipse cx="25" cy="0" rx="28" ry="20" fill="#ff89b6" transform="rotate(25 25 0)"/>
+            <ellipse cx="20" cy="0" rx="22" ry="16" fill="#ffb3d9" transform="rotate(25 20 0)"/>
+            <circle cx="0" cy="0" r="12" fill="#ff4d8a"/>
+            <circle cx="0" cy="0" r="8" fill="#ff89b6"/>
+            <path d="M-5 8 L-15 35 L-8 32 L-10 40" fill="#ff89b6" stroke="#ff4d8a" stroke-width="1"/>
+            <path d="M5 8 L15 35 L8 32 L10 40" fill="#ff89b6" stroke="#ff4d8a" stroke-width="1"/>
+          </g>
+          <circle cx="90" cy="140" r="3" fill="#ffd86b" opacity="0.8">
+            <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="200" cy="160" r="2.5" fill="#ffd86b" opacity="0.8">
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="110" cy="210" r="2" fill="#fff" opacity="0.9">
+            <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.8s" repeatCount="indefinite"/>
+          </circle>
+          <defs>
+            <linearGradient id="giftGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffd6ea"/>
+              <stop offset="1" stop-color="#ffb3d9"/>
+            </linearGradient>
+            <linearGradient id="lidGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#ffe0f0"/>
+              <stop offset="1" stop-color="#ffd6ea"/>
+            </linearGradient>
+            <linearGradient id="ribbonShine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="rgba(255,255,255,0.3)"/>
+              <stop offset="0.5" stop-color="rgba(255,255,255,0.6)"/>
+              <stop offset="1" stop-color="rgba(255,255,255,0.3)"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <p class="gift-hint">Klik kado untuk membuka! 🎁</p>
+      </div>
+
+      <div id="cakeSection" class="cake-section" style="display: none;">
+        <div class="cake-wrap">
+          <svg class="cake" viewBox="0 0 300 260">
+            <ellipse cx="150" cy="230" rx="110" ry="10" fill="#f0e7f7" opacity="0.9"/>
+            <rect x="60" y="110" rx="22" ry="22" width="180" height="110" fill="#ffd6ea" stroke="#ffb3d9" stroke-width="2"/>
+            <path d="M60 130 C80 120, 110 150, 150 140 C190 130, 220 120, 240 132 L240 160 C220 150, 190 160, 150 162 C110 164, 80 150, 60 160 Z" fill="#fff0fb" opacity="0.95"/>
+            <g>
+              <rect x="92" y="140" width="6" height="12" rx="3" fill="#ffd86b" transform="rotate(-12 95 146)"/>
+              <rect x="118" y="148" width="6" height="12" rx="3" fill="#7ae1ff" transform="rotate(18 121 154)"/>
+              <rect x="140" y="136" width="6" height="12" rx="3" fill="#c7a1ff" transform="rotate(-10 143 142)"/>
+              <rect x="170" y="150" width="6" height="12" rx="3" fill="#ff7ab6" transform="rotate(22 173 156)"/>
+              <rect x="200" y="142" width="6" height="12" rx="3" fill="#ffd86b" transform="rotate(-18 203 148)"/>
+            </g>
+            <g transform="translate(150,75)">
+              <rect x="-6" y="-28" width="12" height="32" rx="3" fill="#fff6e6" stroke="#ffd86b" stroke-width="1.2"/>
+              <ellipse cx="0" cy="-38" rx="14" ry="14" fill="#ffd86b" opacity="0.3" class="candle-glow"/>
+              <g class="flame" transform="translate(0,-36)">
+                <path d="M0 -6 C4 -10, 8 -18, 0 -28 C-8 -18, -4 -10, 0 -6 Z" fill="url(#fg)"/>
+                <path d="M0 -4 C2 -7, 4 -11, 0 -18 C-4 -11, -2 -7, 0 -4 Z" fill="#fff6c8" opacity="0.9"/>
+              </g>
+            </g>
+            <defs>
+              <linearGradient id="fg" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd86b"/>
+                <stop offset="1" stop-color="#ff7a00"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <button id="reveal" class="btn">🎁 Lihat Ucapan</button>
+        <div id="msg" class="card">
+          <div id="message" class="message"></div>
+          <div class="signature">— From Jairs n Icekim 💖</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="musicBtn" class="music-btn" title="Play/Pause Music">🎵</button>
+
+  <script>
+    const BALLOON_GRADIENTS = [
+      'linear-gradient(180deg, #ff89b6, #ff4d8a)',
+      'linear-gradient(180deg, #ffd86b, #ffb36b)',
+      'linear-gradient(180deg, #7ae1ff, #2bb2e0)',
+      'linear-gradient(180deg, #c7a1ff, #8a6bff)',
+      'linear-gradient(180deg, #ffb3d9, #ff7ab6)'
+    ];
+
+    const CONFETTI_COLORS = ['#ff89b6', '#ffd86b', '#7ae1ff', '#c7a1ff', '#ffb3d9', '#ff4d8a', '#8b6bff'];
+
+    const BIRTHDAY_MESSAGES = [
+      "Selamat ulang tahun 🎂",
+      "Semoga kamu selalu sehat, rezeki lancar, dan banyak kebahagiaan setiap hari.",
+      "Semoga semua yang kamu impikan bisa tercapai, pelan-pelan tapi pasti.",
+      "Selalu bahagia ya, you deserve all the happiness in the world with jair n icekim !"
+    ];
+
+    const HAPPY_BIRTHDAY_MELODY = [
+      { note: 'C4', duration: '4n' }, { note: 'C4', duration: '8n' },
+      { note: 'D4', duration: '4n' }, { note: 'C4', duration: '4n' },
+      { note: 'F4', duration: '4n' }, { note: 'E4', duration: '2n' },
+      { note: 'C4', duration: '4n' }, { note: 'C4', duration: '8n' },
+      { note: 'D4', duration: '4n' }, { note: 'C4', duration: '4n' },
+      { note: 'G4', duration: '4n' }, { note: 'F4', duration: '2n' }
+    ];
+
+    const elements = {
+      giftBox: document.getElementById('giftBox'),
+      cakeSection: document.getElementById('cakeSection'),
+      revealBtn: document.getElementById('reveal'),
+      msgCard: document.getElementById('msg'),
+      messageEl: document.getElementById('message'),
+      musicBtn: document.getElementById('musicBtn'),
+      balloons: document.querySelectorAll('.balloon'),
+      cakeWrap: document.querySelector('.cake-wrap'),
+      mainTitle: document.getElementById('mainTitle'),
+      leadText: document.getElementById('leadText')
+    };
+
+    let synth, pattern, isPlaying = false;
+
+    function initMusic() {
+      synth = new Tone.PolySynth(Tone.Synth, {
+        oscillator: { type: 'triangle' },
+        envelope: { attack: 0.05, decay: 0.3, sustain: 0.4, release: 1.2 },
+        volume: -12
+      }).toDestination();
+
+      pattern = new Tone.Pattern((time, note) => {
+        synth.triggerAttackRelease(note.note, note.duration, time);
+      }, HAPPY_BIRTHDAY_MELODY, 'up');
+      
+      pattern.interval = '4n';
+      pattern.loop = true;
+    }
+
+    async function toggleMusic() {
+      if (!synth) return;
+      if (!isPlaying) {
+        await Tone.start();
+        Tone.Transport.start();
+        pattern.start(0);
+        elements.musicBtn.textContent = '🔊';
+        elements.musicBtn.classList.add('playing');
+        isPlaying = true;
+      } else {
+        pattern.stop();
+        Tone.Transport.stop();
+        elements.musicBtn.textContent = '🎵';
+        elements.musicBtn.classList.remove('playing');
+        isPlaying = false;
+      }
+    }
+
+    function initBalloons() {
+      elements.balloons.forEach((balloon, index) => {
+        balloon.style.background = BALLOON_GRADIENTS[index % BALLOON_GRADIENTS.length];
+        const string = document.createElement('span');
+        string.className = 'balloon-string';
+        balloon.appendChild(string);
+      });
+    }
+
+    function typeLines(lines, element, onComplete) {
+      element.textContent = '';
+      let lineIndex = 0, charIndex = 0, currentText = '';
+
+      function typeNextChar() {
+        if (lineIndex >= lines.length) {
+          element.textContent = currentText.trim();
+          if (onComplete) onComplete();
+          return;
+        }
+        const currentLine = lines[lineIndex];
+        if (charIndex < currentLine.length) {
+          currentText += currentLine[charIndex++];
+          element.textContent = currentText + (charIndex % 2 ? '|' : '');
+          setTimeout(typeNextChar, 35 + Math.random() * 25);
+        } else {
+          currentText += '\n\n';
+          element.textContent = currentText;
+          lineIndex++;
+          charIndex = 0;
+          setTimeout(typeNextChar, 400);
+        }
+      }
+      typeNextChar();
+    }
+
+    function burstConfetti(count = 30) {
+      const viewportHeight = window.innerHeight;
+      for (let i = 0; i < count; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `position:fixed;left:${15 + Math.random() * 70}%;top:-20px;width:${8 + Math.random() * 12}px;height:${10 + Math.random() * 16}px;background:${CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]};border-radius:${Math.random() > 0.5 ? '50%' : '2px'};pointer-events:none;z-index:9999`;
+        document.body.appendChild(confetti);
+        const duration = 2000 + Math.random() * 1500;
+        const xMove = (Math.random() - 0.5) * 300;
+        confetti.animate([
+          { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+          { transform: `translate(${xMove}px, ${viewportHeight + 120}px) rotate(${Math.random() * 1080}deg)`, opacity: 0 }
+        ], { duration, easing: 'cubic-bezier(.25, .46, .45, .94)' });
+        setTimeout(() => confetti.remove(), duration + 100);
+      }
+    }
+
+    function createSparkles() {
+      if (!elements.cakeWrap) return;
+      const rect = elements.cakeWrap.getBoundingClientRect();
+      for (let i = 0; i < 8; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+        sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+        sparkle.style.animation = `sparkleAnim ${1 + Math.random() * 0.5}s ease-out ${Math.random() * 0.3}s`;
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 2000);
+      }
+    }
+
+    function celebrate() {
+      burstConfetti(35);
+      setTimeout(() => burstConfetti(20), 600);
+      setTimeout(() => burstConfetti(15), 1200);
+      createSparkles();
+      setTimeout(createSparkles, 400);
+    }
+
+    function handleGiftClick() {
+      elements.giftBox.style.transition = 'transform 0.6s ease, opacity 0.6s ease';
+      elements.giftBox.style.transform = 'scale(1.2) rotateY(180deg)';
+      elements.giftBox.style.opacity = '0';
+      setTimeout(() => {
+        elements.giftBox.style.display = 'none';
+        elements.cakeSection.style.display = 'flex';
+        elements.mainTitle.textContent = 'Selamat Ulang Tahun yang ke-19, Windi 🎂';
+        elements.leadText.textContent = 'Klik tombol di bawah untuk melihat pesan spesial 🎁';
+        celebrate();
+      }, 600);
+    }
+
+    function handleRevealClick() {
+      if (elements.msgCard.style.display === 'flex') {
+        elements.msgCard.style.display = 'none';
+        elements.revealBtn.textContent = '🎁 Lihat Ucapan';
+      } else {
+        elements.msgCard.style.display = 'flex';
+        typeLines(BIRTHDAY_MESSAGES, elements.messageEl, () => {
+          celebrate();
+          elements.revealBtn.textContent = '🎉 Tampilkan Lagi';
+        });
+      }
+    }
+
+    function loadToneJS() {
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js';
+      script.onload = initMusic;
+      document.head.appendChild(script);
+    }
+
+    elements.giftBox.addEventListener('click', handleGiftClick);
+    elements.musicBtn.addEventListener('click', toggleMusic);
+    elements.revealBtn.addEventListener('click', handleRevealClick);
+    if (elements.cakeWrap) {
+      elements.cakeWrap.addEventListener('mouseenter', createSparkles);
+    }
+
+    initBalloons();
+    loadToneJS();
+  </script>
+</body>
+</html>
